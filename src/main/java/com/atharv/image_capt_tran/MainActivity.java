@@ -58,7 +58,6 @@ public class MainActivity extends Activity {
     String identifiedLanguageName;
 
 
-    //lafda zala tar delete
     boolean[] selectedLanguage;
     ArrayList<Integer> langList = new ArrayList<>();
     String[] langArray = {"English", "Marathi", "Spanish", "Chinese", "German", "French"};

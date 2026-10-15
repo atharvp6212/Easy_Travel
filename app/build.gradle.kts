@@ -13,6 +13,9 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        manifestPlaceholders["MAPS_API_KEY"] =
+            System.getenv("MAPS_API_KEY") ?: "DEVELOPMENT_KEY_NOT_SET"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,6 +31,15 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        getByName("main") {
+            manifest.srcFile("../src/main/AndroidManifest.xml")
+            java.srcDirs("../src/main/java")
+            res.srcDirs("../src/main/res")
+        }
+        getByName("test").java.srcDirs("../src/test/java")
+        getByName("androidTest").java.srcDirs("../src/androidTest/java")
     }
 }
 
