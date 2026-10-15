@@ -12,6 +12,7 @@ reads the result aloud using text-to-speech.
 - Text-to-speech accessibility output
 - Pure-Java OCR quality metrics for reproducible experiments
 - Character Error Rate based on a memory-efficient Levenshtein algorithm
+- Word Error Rate and an explainable quality-aware preprocessing policy
 
 The Levenshtein implementation uses `O(n*m)` time and `O(m)` auxiliary space,
 where `n` and `m` are the normalized reference and prediction lengths.
@@ -32,3 +33,6 @@ than relying on visual impressions.
 
 The current source layout is retained for compatibility and explicitly mapped in
 the Gradle source sets. No API credentials should be committed to the repository.
+
+Follow `EXPERIMENTS.md` for the fixed evaluation protocol. Design decisions and
+validity constraints are documented in `ARCHITECTURE.md` and `LIMITATIONS.md`.

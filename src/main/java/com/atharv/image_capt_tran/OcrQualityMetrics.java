@@ -38,4 +38,26 @@ public final class OcrQualityMetrics {
         if (normalized.isEmpty()) return normalize(actual).isEmpty() ? 0.0 : 1.0;
         return (double) levenshteinDistance(expected, actual) / normalized.length();
     }
+
+    public static double wordErrorRate(String expected, String actual) {
+        String left = normalize(expected);
+        String right = normalize(actual);
+        String[] expectedWords = left.isEmpty() ? new String[0] : left.split(" ");
+        String[] actualWords = right.isEmpty() ? new String[0] : right.split(" ");
+        if (expectedWords.length == 0) return actualWords.length == 0 ? 0.0 : 1.0;
+        int[] previous = new int[actualWords.length + 1];
+        int[] current = new int[actualWords.length + 1];
+        for (int j = 0; j <= actualWords.length; j++) previous[j] = j;
+        for (int i = 1; i <= expectedWords.length; i++) {
+            current[0] = i;
+            for (int j = 1; j <= actualWords.length; j++) {
+                int replacement = previous[j - 1] + (expectedWords[i - 1].equals(actualWords[j - 1]) ? 0 : 1);
+                current[j] = Math.min(Math.min(previous[j] + 1, current[j - 1] + 1), replacement);
+            }
+            int[] swap = previous;
+            previous = current;
+            current = swap;
+        }
+        return (double) previous[actualWords.length] / expectedWords.length;
+    }
 }
